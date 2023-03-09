@@ -1,3 +1,4 @@
+- feat(labs): add lab05
 - feat(labs): add lab04
 - feat(group-project): add stage1
 - feat(main): update lab3
