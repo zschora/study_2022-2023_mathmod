@@ -1,3 +1,5 @@
+- feat(labs): add lab07
+- feat(labs): add lab06
 - feat(labs): add lab05
 - feat(labs): add lab04
 - feat(group-project): add stage1

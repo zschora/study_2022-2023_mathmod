@@ -9,7 +9,7 @@ using Plots;
 
 # ╔═╡ 3c6eda11-88f5-41c2-b656-88afa15071eb
 begin
-	n = 50
+	n = 300
 	X = zeros(n)
 	Y = zeros(n)
 end
@@ -37,7 +37,7 @@ end
 # ╔═╡ 843201ae-1799-4425-8a86-bf077a031345
 function check(x, y)
 	for i in 1:n
-		if abs(X[i] - x) + abs(Y[i] - y) <= 1
+		if abs(X[i] - x) + abs(Y[i] - y) == 1
 			return true
 		end
 	end
@@ -67,11 +67,11 @@ begin
 				return true
 			end
 			j = floor(Int, 100 * rand()) % 4 + 1
-			#x = x + dx[j]
-			#y = y + dy[j]
+			x = x + dx[j]
+			y = y + dy[j]
 			
-    		x = x + 2 * rand() - 1
-			y = y + 2 * rand() - 1
+    		#x = x + 2 * rand() - 1
+			#y = y + 2 * rand() - 1
 			step += 1
 		end
 		return false
@@ -84,12 +84,17 @@ end
 # ╔═╡ 8c5426a4-7dfc-4a90-ba2f-ff220b4de14c
 begin
 	function DLA(t)
-		i = 1
+		i = 2
+		xl = 0
+		xr = 0
+		yu = 0
+		yd = 0
 		while i < t
-			xl = minimum(X)
-			xr = maximum(X)
-			yu = minimum(Y)
-			yd = maximum(Y)
+			xl = minimum([xl, X[i-1]])
+			xr = maximum([xr, X[i-1]])
+			yu = maximum([yu, Y[i-1]])
+			yd = minimum([yd, Y[i-1]])
+			#@show xl, xr, yu, yd, X[i-1], Y[i-1]
 			r = dist(xl, yd, xr, yu) / 2 + 3
 			x, y = GetNextParticular((xr+xl)/2, (yu+yd)/2, r)
 			ok = RandomWalk(x, y, i, r, xl, xr, yu, yd)
@@ -108,7 +113,7 @@ end
 plot(X, Y, seriestype=:scatter, title="dla", label="claster")
 
 # ╔═╡ d1485e6c-4b8c-46a5-9411-f92b51139d72
-X
+
 
 # ╔═╡ d3e5c06b-8b46-42b0-b606-2ace756c74db
 begin
